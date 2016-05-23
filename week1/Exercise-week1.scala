@@ -1,5 +1,3 @@
-import com.sun.corba.se.spi.extension.ZeroPortPolicy
-
 progfun2
 
 map
