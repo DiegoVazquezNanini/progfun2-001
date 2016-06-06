@@ -1,6 +1,7 @@
 package streams
 
 import common._
+import jdk.nashorn.internal.ir.Block
 
 /**
  * This trait represents the layout and building blocks of the game
@@ -85,8 +86,6 @@ trait GameDef {
    * the game.
    */
   def startBlock: Block = ???
-
-
   /**
    * A block is represented by the position of the two cubes that
    * it consists of. We make sure that `b1` is lexicographically
@@ -146,11 +145,11 @@ trait GameDef {
     /**
      * Returns `true` if the block is standing.
      */
-    def isStanding: Boolean = ???
+    def isStanding: Boolean = b1 == b2
 
     /**
      * Returns `true` if the block is entirely inside the terrain.
      */
-    def isLegal: Boolean = ???
+    def isLegal: Boolean = if (isStanding) terrain(b1) else terrain(b1) && terrain(b2)
   }
 }

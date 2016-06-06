@@ -3,6 +3,7 @@ reated by https://www.gitignore.io/api/scala,sbt,intellij
 ### Scala ###
 *.class
 *.log
+*.iml
 
 # sbt specific
 .cache
