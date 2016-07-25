@@ -53,4 +53,18 @@ abstract class QuickCheckHeap extends Properties("Heap") with IntHeap {
     findMin(h) == minMerge || findMin(j) == minMerge
   }
 
+  property("gen1") = forAll { l: List[Int] =>
+    toList(toHeap(l)) == l.sorted
+  }
+
+  def toList(h: H): List[Int] = {
+    if (isEmpty(h)) Nil
+    else findMin(h) :: toList(deleteMin(h))
+  }
+
+  def toHeap(l: List[Int]): H = l match {
+    case Nil => empty
+    case x::xs => insert(x,toHeap(xs))
+  }
+
 }
