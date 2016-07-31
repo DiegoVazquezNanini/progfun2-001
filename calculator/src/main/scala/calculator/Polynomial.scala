@@ -3,22 +3,21 @@ package calculator
 object Polynomial {
   def computeDelta(a: Signal[Double], b: Signal[Double],
       c: Signal[Double]): Signal[Double] = {
-    val an = a()
-    val bn = b()
-    val cn = c()
-    val delta = Math.pow(bn, 2) - 4 * an * cn
+    val delta = Math.pow(b(), 2) - 4 * a() * c()
     Signal(delta)
   }
 
   def computeSolutions(a: Signal[Double], b: Signal[Double],
       c: Signal[Double], delta: Signal[Double]): Signal[Set[Double]] = {
-    val an = a()
-    val bn = b()
-    val cn = c()
-    val deltan = delta()
-
-    val root1 = - bn + Math.pow(deltan, 0.5) / 2 * an
-    val root2 = - bn - Math.pow(deltan, 0.5) / 2 * an
-    Signal(Set(root1, root2))
+    if (delta() < 0) Signal(Set.empty)
+    else if (delta() == 0) {
+      val root0 = - b() / (2 * a())
+      Signal(Set(root0))
+    }
+    else {
+      val root1 = (- b() + Math.pow(delta(), 0.5)) / (2 * a())
+      val root2 = (- b() - Math.pow(delta(), 0.5)) / (2 * a())
+      Signal(Set(root1, root2))
+    }
   }
 }
